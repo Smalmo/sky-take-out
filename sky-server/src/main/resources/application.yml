@@ -6,6 +6,13 @@ spring:
     active: dev
   main:
     allow-circular-references: true
+#  devtools:
+#    # 热部署
+#    restart:
+#      enabled: true
+#      additional-paths: sky-server/src/main/java
+#      exclude: static/**
+
   datasource:
     druid:
       driver-class-name: ${sky.datasource.driver-class-name}
