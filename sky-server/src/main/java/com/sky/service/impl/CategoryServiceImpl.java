@@ -45,8 +45,8 @@ public class CategoryServiceImpl implements CategoryService {
         // 默认设置为启用状态
         category.setStatus(StatusConstant.ENABLE);
         // 获取存入时间&操作人员
-        category.setCreateTime(LocalDateTime.now());
-        category.setCreateUser(BaseContext.getCurrentId());
+//        category.setCreateTime(LocalDateTime.now());
+//        category.setCreateUser(BaseContext.getCurrentId());
 
         // 调用Mapper的方法存入数据
         categoryMapper.save(category);
@@ -107,8 +107,9 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = Category.builder()
                 .id(id)
                 .status(status)
-                .updateTime(LocalDateTime.now())
-                .updateUser(BaseContext.getCurrentId())
+                // 公共字段通过注解添加
+//                .updateTime(LocalDateTime.now())
+//                .updateUser(BaseContext.getCurrentId())
                 .build();
         categoryMapper.update(category);
     }
@@ -122,8 +123,10 @@ public class CategoryServiceImpl implements CategoryService {
         // 将DTO数据存入category对象实例
         BeanUtils.copyProperties(categoryDTO,category);
         // 设置修改时间，修改人
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateUser(BaseContext.getCurrentId());
+        // 公共字段，通过注解添加
+        // category.setUpdateTime(LocalDateTime.now());
+        // category.setUpdateUser(BaseContext.getCurrentId());
+
         categoryMapper.update(category);
     }
 }

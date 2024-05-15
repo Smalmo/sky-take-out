@@ -84,15 +84,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setStatus(StatusConstant.ENABLE);
         // 设置初始密码
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
-        // 设置创建时间
-        employee.setCreateTime(LocalDateTime.now());
-        // 设置修改时间
-        employee.setUpdateTime(LocalDateTime.now());
-        // 设置创建id
-        // TODO 后期完善修改id 已通过localThread解决
-        employee.setCreateUser(BaseContext.getCurrentId());
-        // 设置修改id
-        employee.setUpdateUser(BaseContext.getCurrentId());
+//        // 设置创建时间
+//        employee.setCreateTime(LocalDateTime.now());
+//        // 设置修改时间
+//        employee.setUpdateTime(LocalDateTime.now());
+//        // 设置创建id
+//        // TODO 后期完善修改id 已通过localThread解决
+//        employee.setCreateUser(BaseContext.getCurrentId());
+//        // 设置修改id
+//        employee.setUpdateUser(BaseContext.getCurrentId());
 
         // 调用持久层方法将数据存入数据库
         employeeMapper.insert(employee);
@@ -157,8 +157,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 将DTO数据拷贝到实体对象
         BeanUtils.copyProperties(employeeDTO,employee);
         // 修改人员、时间信息
-        employee.setUpdateUser(BaseContext.getCurrentId());
-        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
+//        employee.setUpdateTime(LocalDateTime.now());
 
         employeeMapper.update(employee);
     }

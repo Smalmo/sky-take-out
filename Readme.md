@@ -4,3 +4,7 @@
   > 
   >该异常为lombok版本兼容异常，修改pom文件properties标签中版本号解决
   > 
+-   公共字段自动填充
+- > 1、自定义注解 @AutoFill，指定作用方法类型  
+  > 2、自定义切面类AutoFillAspect，统一拦截加了 @AutoFill的方法  
+  > 3、Mapper方法加上 @AutoFill  
