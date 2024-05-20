@@ -8,7 +8,6 @@ import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
-import com.sky.entity.SetmealDish;
 import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
@@ -20,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -92,8 +92,56 @@ public class DishServiceImpl implements DishService {
         dishMapper.delDishByIds(ids);
         // 删除关联的口味
         dishFlavorMapper.delFlavorByDishIds(ids);
+    }
 
+    /**
+     * 根据id查询菜品
+     * @return
+     */
+    public DishVO getByIdWithFlavors(Long id) {
+        Dish dish = dishMapper.getById(id);
+        List<DishFlavor> flavors = dishFlavorMapper.getByDishId(id);
 
+        DishVO dishVO = new DishVO();
+        BeanUtils.copyProperties(dish,dishVO);
+        dishVO.setFlavors(flavors);
+        return dishVO;
+    }
 
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    public Dish getByCategortId(Long categoryId) {
+        Dish dish = dishMapper.getByCategoryId(categoryId);
+        return dish;
+    }
+
+    /**
+     * 修改菜品
+     * @param dishDTO
+     */
+    public void update(DishDTO dishDTO) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO,dish);
+        // 更新菜品信息
+        dishMapper.update(dish);
+
+        // 删除口味信息
+        List<Long> dishId = new LinkedList<>();
+//        Long id = dishDTO.getId();
+        dishId.add(dishDTO.getId());
+        dishFlavorMapper.delFlavorByDishIds(dishId);
+        // 插入口味信息
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+
+        if (flavors != null && flavors.size() > 0) {
+            flavors.forEach(dishFlavor -> {
+                dishFlavor.setDishId(dishDTO.getId());
+            });
+            // 向口味表添加条数据
+            dishFlavorMapper.insertFlavors(flavors);
+        }
     }
 }

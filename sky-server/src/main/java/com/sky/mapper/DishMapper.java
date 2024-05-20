@@ -51,4 +51,19 @@ public interface DishMapper {
      * @param dishIds
      */
     void delDishByIds(List<Long> dishIds);
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @Select("select * from dish where category_id = #{categoryId}")
+    Dish getByCategoryId(Long categoryId);
+
+    /**
+     * 修改菜品
+     * @param dish
+     */
+    @AutoFill(OperationType.UPDATE)
+    void update(Dish dish);
 }
