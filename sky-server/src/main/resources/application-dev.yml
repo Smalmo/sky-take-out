@@ -12,6 +12,10 @@ sky:
     password: Cqupt456
     database: 1
 
+  wechat:
+    appid: wxba6d1e897ffb1a1d
+    secret: a517dd53a9408baaa9cd00bb5b0d151d
+
 
   staticsource:
     photo: /photo/
