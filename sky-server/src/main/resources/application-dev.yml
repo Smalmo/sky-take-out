@@ -9,7 +9,7 @@ sky:
   redis:
     host: localhost
     port: 6379
-    password: Cqupt456
+    password:
     database: 1
 
   wechat:

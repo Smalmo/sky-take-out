@@ -59,6 +59,7 @@ public class UserController {
                 .openid(user.getOpenid())
                 .token(token)
                 .build();
+        log.info("登录成功");
         return Result.success(userLoginVO);
     }
 }
