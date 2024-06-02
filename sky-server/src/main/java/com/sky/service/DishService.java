@@ -40,10 +40,11 @@ public interface DishService {
 
     /**
      * 根据分类id查询菜品
+     *
      * @param categoryId
      * @return
      */
-    Dish getByCategortId(Long categoryId);
+    List<Dish> getByCategortId(Long categoryId);
 
     /**
      * 修改菜品
@@ -57,4 +58,11 @@ public interface DishService {
      * @return
      */
     List<DishVO> listWithFlavor(Dish dish);
+
+    /**
+     * 菜品起售、停售
+     * @param status
+     * @param id
+     */
+    void startOrStop(Integer status, Long id);
 }

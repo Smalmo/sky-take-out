@@ -84,9 +84,9 @@ public class DishController {
      */
     @GetMapping("/list")
     @ApiOperation("根据分类id查询菜品")
-    public Result<Dish> getDishByCatId(Long categoryId){
+    public Result<List<Dish>> getDishByCatId(Long categoryId){
         log.info("根据分类id查询菜品:{}"+categoryId);
-        Dish dish = dishService.getByCategortId(categoryId);
+        List<Dish> dish = dishService.getByCategortId(categoryId);
         return Result.success(dish);
     }
 
@@ -125,7 +125,20 @@ public class DishController {
         return Result.success();
     }
 
-
+    /**
+     * 菜品起售、停售
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("status/{status}")
+    @ApiOperation("菜品起售、停售")
+    public Result dishStatus(@PathVariable Integer status,Long id){
+        log.info("菜品起售、停售：{}",id,status);
+        dishService.startOrStop(status,id);
+        cleanCache("dish_*");
+        return Result.success();
+    }
 
     private void cleanCache(String pattern){
         Set keys = redisTemplate.keys(pattern);

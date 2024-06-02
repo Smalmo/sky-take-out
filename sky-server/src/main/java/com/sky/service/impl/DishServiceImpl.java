@@ -111,11 +111,13 @@ public class DishServiceImpl implements DishService {
 
     /**
      * 根据分类id查询菜品
+     *
      * @param categoryId
      * @return
      */
-    public Dish getByCategortId(Long categoryId) {
-        Dish dish = dishMapper.getByCategoryId(categoryId);
+    public List<Dish> getByCategortId(Long categoryId) {
+        // todo 与list方法合并
+        List<Dish> dish = dishMapper.getByCategoryId(categoryId);
         return dish;
     }
 
@@ -168,5 +170,18 @@ public class DishServiceImpl implements DishService {
         }
 
         return dishVOList;
+    }
+
+    /**
+     * 菜品起售、停售
+     * @param status
+     * @param id
+     */
+    public void startOrStop(Integer status, Long id) {
+        Dish dish = Dish.builder()
+                .id(id)
+                .status(status)
+                .build();
+        dishMapper.update(dish);
     }
 }

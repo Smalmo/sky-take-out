@@ -1,14 +1,9 @@
 package com.sky.mapper;
 
-import com.github.pagehelper.Page;
-import com.sky.annotation.AutoFill;
-import com.sky.dto.DishPageQueryDTO;
-import com.sky.entity.Dish;
 import com.sky.entity.SetmealDish;
-import com.sky.enumeration.OperationType;
-import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,4 +19,31 @@ public interface SetmealDishMapper {
      * @return
      */
     List<Long> getByDishId(List<Long> dishIds);
+
+    /**
+     * 保存套餐菜品
+     * @param setmealDishes
+     * @param setmealId
+     */
+    void save(List<SetmealDish> setmealDishes, Long setmealId);
+
+    /**
+     * 删除套餐菜品
+     * @param setmealIds
+     */
+    void delete(List<Long> setmealIds);
+
+    /**
+     * 更新套餐菜品
+     * @param setmealDish
+     */
+    void update(SetmealDish setmealDish);
+
+    /**
+     * 根据setmealId查询关系
+     * @param setmealId
+     * @return
+     */
+    @Select("select * from setmeal_dish where setmeal_id = #{setmealId}")
+    List<SetmealDish> getSetmealDishById(Long setmealId);
 }
